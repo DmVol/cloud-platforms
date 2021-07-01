@@ -8,6 +8,13 @@ terraform {
   }
 
   required_version = ">= 0.14.9"
+
+  backend "remote" {
+    organization = "voloshyniuk_corporation"
+    workspaces {
+      name = "Example-Workspace"
+    }
+ }
 }
 
 provider "azurerm" {
