@@ -1,0 +1,31 @@
+az storage account create -g ucu-homework-2 --name httpstoragehw --sku Standard_LRS
+
+az functionapp create -g ucu-homework-2 --storage-account httpstoragehw --consumption-plan-location westeurope --runtime python --runtime-version 3.8 --functions-version 3 --name HttpToBucket --os-type linux
+
+func azure functionapp publish <APP_NAME>
+
+RESOURCE_GROUP="ucu-homework-2"
+REGION="westeurope"
+STORAGE_ACCOUNT="teststoreucuhw"
+FUNCTION_APP_NAME="HttpToBucket"
+
+az storage account create --name $STORAGE_ACCOUNT \
+    --location $REGION \
+    --resource-group $RESOURCE_GROUP \
+    --sku Standard_LRS
+
+ACCESS_KEY="sensitive"
+
+az storage container create  \
+    --name "inputitems" \
+    --account-name $STORAGE_ACCOUNT \
+    --account-key $ACCESS_KEY
+
+FUNCTION_STORAGE_CONNECTION="sensitive"
+
+
+az webapp config appsettings set \
+  -n $FUNCTION_APP_NAME \
+  -g $RESOURCE_GROUP \
+  --settings \
+    MyStorageConnectionString=$FUNCTION_STORAGE_CONNECTION
