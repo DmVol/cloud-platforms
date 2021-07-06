@@ -2,12 +2,11 @@
   "scriptFile": "__init__.py",
   "bindings": [
     {
-      "authLevel": "Function",
+      "authLevel": "function",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
         "post"
       ]
     },
@@ -15,6 +14,13 @@
       "type": "http",
       "direction": "out",
       "name": "$return"
+    },
+    {
+      "type": "blob",
+      "name": "outputblob",
+      "path": "source/ctry/{DateTime:yyyy}/{DateTime:MM}/{DateTime:dd}/event_{DateTime}.json",
+      "direction": "out",
+      "connection": "MyStorageConnectionString"
     }
   ]
 }
