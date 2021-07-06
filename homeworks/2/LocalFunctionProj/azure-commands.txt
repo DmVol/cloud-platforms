@@ -1,0 +1,5 @@
+az storage account create -g ucu-homework-2 --name httpstoragehw --sku Standard_LRS
+
+az functionapp create -g ucu-homework-2 --storage-account httpstoragehw --consumption-plan-location westeurope --runtime python --runtime-version 3.8 --functions-version 3 --name HttpToBucket --os-type linux
+
+func azure functionapp publish <APP_NAME>
